@@ -5,33 +5,48 @@
 // {java enums.RoShamBo4}
 package enums;
 
-public enum RoShamBo4 implements Competitor<RoShamBo4> {
-  ROCK {
-    @Override
-    public Outcome compete(RoShamBo4 opponent) {
-      return compete(SCISSORS, opponent);
+/**
+ * “石头、剪刀、布”
+ * 使用 enum 常量方法多路分发
+ * 压缩简化 {@link enums.RoShamBo3}
+ *
+ * 缺点：难理解
+ *
+ * @see enums.RoShamBo1
+ * @see enums.RoShamBo2
+ * @see enums.RoShamBo3
+ * @see enums.RoShamBo5
+ * @see enums.RoShamBo6
+ */
+public enum RoShamBo4 implements enums.Competitor<RoShamBo4> {
+    ROCK {
+        @Override
+        public enums.Outcome compete(RoShamBo4 opponent) {
+            return compete(SCISSORS, opponent);
+        }
+    },
+    SCISSORS {
+        @Override
+        public enums.Outcome compete(RoShamBo4 opponent) {
+            return compete(PAPER, opponent);
+        }
+    },
+    PAPER {
+        @Override
+        public enums.Outcome compete(RoShamBo4 opponent) {
+            return compete(ROCK, opponent);
+        }
+    };
+
+    enums.Outcome compete(RoShamBo4 loser, RoShamBo4 opponent) {
+        return (opponent == this) ? enums.Outcome.DRAW
+                : ((opponent == loser) ? enums.Outcome.WIN
+                : enums.Outcome.LOSE);
     }
-  },
-  SCISSORS {
-    @Override
-    public Outcome compete(RoShamBo4 opponent) {
-      return compete(PAPER, opponent);
+
+    public static void main(String[] args) {
+        enums.RoShamBo.play(RoShamBo4.class, 20);
     }
-  },
-  PAPER {
-    @Override
-    public Outcome compete(RoShamBo4 opponent) {
-      return compete(ROCK, opponent);
-    }
-  };
-  Outcome compete(RoShamBo4 loser, RoShamBo4 opponent) {
-    return ((opponent == this) ? Outcome.DRAW
-        : ((opponent == loser) ? Outcome.WIN
-                               : Outcome.LOSE));
-  }
-  public static void main(String[] args) {
-    RoShamBo.play(RoShamBo4.class, 20);
-  }
 }
 /* Output:
 PAPER vs. PAPER: DRAW

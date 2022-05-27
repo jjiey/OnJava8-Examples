@@ -5,32 +5,50 @@
 // Enums in switch statements
 
 // Define an enum type:
-enum Signal { GREEN, YELLOW, RED, }
+enum Signal {
+    GREEN,
+    YELLOW,
+    RED,
+}
 
+/**
+ * switch 语句中的 enum
+ */
 public class TrafficLight {
-  Signal color = Signal.RED;
+
+    Signal color = Signal.RED;
+
+  /**
+   * 必须确保覆盖了所有的分支，就可以没有 default 语句
+   * 如果在 case 语句中调用 return，无论是否覆盖了 enum 的所有实例，必须有 default 语句
+   */
   public void change() {
-    switch(color) {
-      // Note you don't have to say Signal.RED
-      // in the case statement:
-      case RED:    color = Signal.GREEN;
-                   break;
-      case GREEN:  color = Signal.YELLOW;
-                   break;
-      case YELLOW: color = Signal.RED;
-                   break;
+        switch (color) {
+            // Note you don't have to say Signal.RED in the case statement:
+            case RED:
+                color = Signal.GREEN;
+                break;
+            case GREEN:
+                color = Signal.YELLOW;
+                break;
+            case YELLOW:
+                color = Signal.RED;
+                break;
+        }
     }
-  }
-  @Override public String toString() {
-    return "The traffic light is " + color;
-  }
-  public static void main(String[] args) {
-    TrafficLight t = new TrafficLight();
-    for(int i = 0; i < 7; i++) {
-      System.out.println(t);
-      t.change();
+
+    @Override
+    public String toString() {
+        return "The traffic light is " + color;
     }
-  }
+
+    public static void main(String[] args) {
+        TrafficLight t = new TrafficLight();
+        for (int i = 0; i < 7; i++) {
+            System.out.println(t);
+            t.change();
+        }
+    }
 }
 /* Output:
 The traffic light is RED

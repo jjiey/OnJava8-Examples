@@ -3,15 +3,21 @@
 // We make no guarantees that this code is fit for any purpose.
 // Visit http://OnJava8.com for more book information.
 package onjava;
+
 import java.util.*;
 
+/**
+ * 随机选择
+ */
 public class Enums {
-  private static Random rand = new Random(47);
-  public static
-  <T extends Enum<T>> T random(Class<T> ec) {
-    return random(ec.getEnumConstants());
-  }
-  public static <T> T random(T[] values) {
-    return values[rand.nextInt(values.length)];
-  }
+
+    private static final Random RAND = new Random(47);
+
+    public static <T extends Enum<T>> T random(Class<T> ec) {
+        return random(ec.getEnumConstants());
+    }
+
+    public static <T> T random(T[] values) {
+        return values[RAND.nextInt(values.length)];
+    }
 }

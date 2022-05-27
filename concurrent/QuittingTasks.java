@@ -2,25 +2,29 @@
 // (c)2021 MindView LLC: see Copyright.txt
 // We make no guarantees that this code is fit for any purpose.
 // Visit http://OnJava8.com for more book information.
-import java.util.*;
-import java.util.stream.*;
-import java.util.concurrent.*;
+
 import onjava.Nap;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class QuittingTasks {
-  public static final int COUNT = 150;
-  public static void main(String[] args) {
-    ExecutorService es =
-      Executors.newCachedThreadPool();
-    List<QuittableTask> tasks =
-      IntStream.range(1, COUNT)
-        .mapToObj(QuittableTask::new)
-        .peek(qt -> es.execute(qt))
-        .collect(Collectors.toList());
-    new Nap(1);
-    tasks.forEach(QuittableTask::quit);
-    es.shutdown();
-  }
+
+    public static final int COUNT = 150;
+
+    public static void main(String[] args) {
+        ExecutorService es = Executors.newCachedThreadPool();
+        List<QuittableTask> tasks = IntStream.range(1, COUNT)
+                .mapToObj(QuittableTask::new)
+                .peek(es::execute)
+                .collect(Collectors.toList());
+        new Nap(1);
+        tasks.forEach(QuittableTask::quit);
+        es.shutdown();
+    }
 }
 /* Output:
 11 23 20 12 24 16 19 15 35 147 32 27 7 4 28 31 8 83 3 1

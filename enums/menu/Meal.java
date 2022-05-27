@@ -5,16 +5,23 @@
 // {java enums.menu.Meal}
 package enums.menu;
 
+/**
+ * 枚举的枚举
+ * 随机选择生成菜单
+ *
+ * @see enums.menu.Meal2
+ */
 public class Meal {
-  public static void main(String[] args) {
-    for(int i = 0; i < 5; i++) {
-      for(Course course : Course.values()) {
-        Food food = course.randomSelection();
-        System.out.println(food);
-      }
-      System.out.println("***");
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 5; i++) {
+            for (enums.menu.Course course : enums.menu.Course.values()) {
+                enums.menu.Food food = course.randomSelection();
+                System.out.println(food);
+            }
+            System.out.println("***");
+        }
     }
-  }
 }
 /* Output:
 SPRING_ROLLS

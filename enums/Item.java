@@ -5,8 +5,12 @@
 package enums;
 
 public interface Item {
-  Outcome compete(Item it);
-  Outcome eval(Paper p);
-  Outcome eval(Scissors s);
-  Outcome eval(Rock r);
+
+    enums.Outcome compete(Item it);
+
+    enums.Outcome eval(enums.Paper p);
+
+    enums.Outcome eval(enums.Scissors s);
+
+    enums.Outcome eval(enums.Rock r);
 }

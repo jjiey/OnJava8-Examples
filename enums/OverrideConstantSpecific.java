@@ -3,22 +3,29 @@
 // We make no guarantees that this code is fit for any purpose.
 // Visit http://OnJava8.com for more book information.
 
+/**
+ * 除了实现 abstract 方法以外，也可以覆盖常量相关的方法
+ */
 public enum OverrideConstantSpecific {
-  NUT, BOLT,
-  WASHER {
-    @Override void f() {
-      System.out.println("Overridden method");
+    NUT,
+    BOLT,
+    WASHER {
+        @Override
+        void f() {
+            System.out.println("Overridden method");
+        }
+    };
+
+    void f() {
+        System.out.println("default behavior");
     }
-  };
-  void f() {
-    System.out.println("default behavior");
-  }
-  public static void main(String[] args) {
-    for(OverrideConstantSpecific ocs : values()) {
-      System.out.print(ocs + ": ");
-      ocs.f();
+
+    public static void main(String[] args) {
+        for (OverrideConstantSpecific ocs : values()) {
+            System.out.print(ocs + ": ");
+            ocs.f();
+        }
     }
-  }
 }
 /* Output:
 NUT: default behavior

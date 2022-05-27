@@ -3,18 +3,23 @@
 // We make no guarantees that this code is fit for any purpose.
 // Visit http://OnJava8.com for more book information.
 package enums.menu;
-import onjava.*;
 
+/**
+ * 枚举的枚举
+ */
 public enum Course {
-  APPETIZER(Food.Appetizer.class),
-  MAINCOURSE(Food.MainCourse.class),
-  DESSERT(Food.Dessert.class),
-  COFFEE(Food.Coffee.class);
-  private Food[] values;
-  private Course(Class<? extends Food> kind) {
-    values = kind.getEnumConstants();
-  }
-  public Food randomSelection() {
-    return Enums.random(values);
-  }
+    APPETIZER(enums.menu.Food.Appetizer.class),
+    MAINCOURSE(enums.menu.Food.MainCourse.class),
+    DESSERT(enums.menu.Food.Dessert.class),
+    COFFEE(enums.menu.Food.Coffee.class);
+
+    private final enums.menu.Food[] values;
+
+    Course(Class<? extends enums.menu.Food> kind) {
+        values = kind.getEnumConstants();
+    }
+
+    public enums.menu.Food randomSelection() {
+        return onjava.Enums.random(values);
+    }
 }

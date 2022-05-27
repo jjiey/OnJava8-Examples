@@ -4,9 +4,10 @@
 // Visit http://OnJava8.com for more book information.
 
 public class TestStaticIDField {
-  public static void main(String[] args) {
-    IDChecker.test(StaticIDField::new);
-  }
+
+    public static void main(String[] args) {
+        IDChecker.test(StaticIDField::new);
+    }
 }
 /* Output:
 21397

@@ -2,49 +2,50 @@
 // (c)2021 MindView LLC: see Copyright.txt
 // We make no guarantees that this code is fit for any purpose.
 // Visit http://OnJava8.com for more book information.
-import java.util.concurrent.*;
+
+import java.util.concurrent.CompletableFuture;
 
 public class CompletableExceptions {
-  static CompletableFuture<Breakable>
-  test(String id, int failcount) {
-    return
-      CompletableFuture.completedFuture(
-        new Breakable(id, failcount))
-          .thenApply(Breakable::work)
-          .thenApply(Breakable::work)
-          .thenApply(Breakable::work)
-          .thenApply(Breakable::work);
-  }
-  public static void main(String[] args) {
-    // Exceptions don't appear ...
-    test("A", 1);
-    test("B", 2);
-    test("C", 3);
-    test("D", 4);
-    test("E", 5);
-    // ... until you try to fetch the value:
-    try {
-      test("F", 2).get(); // or join()
-    } catch(Exception e) {
-      System.out.println(e.getMessage());
+
+    static CompletableFuture<Breakable> test(String id, int failCount) {
+        return CompletableFuture.completedFuture(new Breakable(id, failCount))
+                .thenApply(Breakable::work)
+                .thenApply(Breakable::work)
+                .thenApply(Breakable::work)
+                .thenApply(Breakable::work);
     }
-    // Test for exceptions:
-    System.out.println(
-      test("G", 2).isCompletedExceptionally());
-    // Counts as "done":
-    System.out.println(test("H", 2).isDone());
-    // Force an exception:
-    CompletableFuture<Integer> cfi =
-      new CompletableFuture<>();
-    System.out.println("done? " + cfi.isDone());
-    cfi.completeExceptionally(
-      new RuntimeException("forced"));
-    try {
-      cfi.get();
-    } catch(Exception e) {
-      System.out.println(e.getMessage());
+
+    public static void main(String[] args) {
+        // Exceptions don't appear ...
+        test("A", 1);
+        test("B", 2);
+        test("C", 3);
+        test("D", 4);
+        test("E", 5);
+        // ... until you try to fetch the value:
+        try {
+            // or join()
+            test("F", 2).get();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        // 可以首先检查在处理期间是否抛出异常，而不抛出该异常
+        // Test for exceptions:
+        System.out.println(test("G", 2).isCompletedExceptionally());
+        // 不管是否抛出异常，都被视为 done
+        // Counts as "done":
+        System.out.println(test("H", 2).isDone());
+        // 将异常插入到 CompletableFuture 中，而不管是否存在任何失败
+        // Force an exception:
+        CompletableFuture<Integer> cfi = new CompletableFuture<>();
+        System.out.println("done? " + cfi.isDone());
+        cfi.completeExceptionally(new RuntimeException("forced"));
+        try {
+            cfi.get();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-  }
 }
 /* Output:
 Throwing Exception for A
