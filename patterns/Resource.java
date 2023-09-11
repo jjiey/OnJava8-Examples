@@ -4,6 +4,8 @@
 // Visit http://OnJava8.com for more book information.
 
 public interface Resource<T> {
-  T get();
-  void set(T x);
+
+    T get();
+
+    void set(T x);
 }

@@ -4,60 +4,70 @@
 // Visit http://OnJava8.com for more book information.
 // {java patterns.chain.ChainOfResponsibility}
 package patterns.chain;
-import java.util.*;
-import java.util.function.*;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
 
 interface Algorithm {
-  Result algorithm(List<Double> line);
+
+    patterns.chain.Result algorithm(List<Double> line);
 }
 
 class FindMinima {
-  public static Result test(
-    boolean success, String id, double d1, double d2) {
-    System.out.println(id);
-    if(success) // Actual test/calculation here
-      return new Result(Arrays.asList(d1, d2));
-    else // Try the next one in the chain:
-      return Result.fail;
-  }
-  public static Result leastSquares(List<Double> line) {
-    return test(false, "LeastSquares", 1.1, 2.2);
-  }
-  public static Result perturbation(List<Double> line) {
-    return test(false, "Perturbation", 3.3, 4.4);
-  }
-  public static Result bisection(List<Double> line) {
-    return test(true, "Bisection", 5.5, 6.6);
-  }
-  static List<Function<List<Double>, Result>>
-    algorithms = Arrays.asList(
-      FindMinima::leastSquares,
-      FindMinima::perturbation,
-      FindMinima::bisection
-    );
-  public static Result minima(List<Double> line) {
-    for(Function<List<Double>, Result> alg :
-        algorithms) {
-      Result result = alg.apply(line);
-      if(result.success)
-        return result;
+
+    public static patterns.chain.Result test(boolean success, String id, double d1, double d2) {
+        System.out.println(id);
+        if (success) {
+            // Actual test/calculation here
+            return new patterns.chain.Result(Arrays.asList(d1, d2));
+        } else {
+            // Try the next one in the chain:
+            return patterns.chain.Result.FAIL;
+        }
     }
-    return Result.fail;
-  }
+
+    public static patterns.chain.Result leastSquares(List<Double> line) {
+        return test(false, "LeastSquares", 1.1, 2.2);
+    }
+
+    public static patterns.chain.Result perturbation(List<Double> line) {
+        return test(false, "Perturbation", 3.3, 4.4);
+    }
+
+    public static patterns.chain.Result bisection(List<Double> line) {
+        return test(true, "Bisection", 5.5, 6.6);
+    }
+
+    static List<Function<List<Double>, patterns.chain.Result>> algorithms = Arrays.asList(
+            FindMinima::leastSquares,
+            FindMinima::perturbation,
+            FindMinima::bisection
+    );
+
+    public static patterns.chain.Result minima(List<Double> line) {
+        for (Function<List<Double>, patterns.chain.Result> alg : algorithms) {
+            patterns.chain.Result result = alg.apply(line);
+            if (result.success) {
+                return result;
+            }
+        }
+        return patterns.chain.Result.FAIL;
+    }
 }
 
 public class ChainOfResponsibility {
-  public static void main(String[] args) {
-    FindMinima solver = new FindMinima();
-    List<Double> line = Arrays.asList(
-      1.0, 2.0, 1.0, 2.0, -1.0,
-      3.0, 4.0, 5.0, 4.0);
-    Result result = solver.minima(line);
-    if(result.success)
-      System.out.println(result.line);
-    else
-      System.out.println("No algorithm found");
-  }
+
+    public static void main(String[] args) {
+        FindMinima solver = new FindMinima();
+        List<Double> line = Arrays.asList(1.0, 2.0, 1.0, 2.0, -1.0, 3.0, 4.0, 5.0, 4.0);
+        patterns.chain.Result result = solver.minima(line);
+        if (result.success) {
+            System.out.println(result.line);
+        } else {
+            System.out.println("No algorithm found");
+        }
+    }
 }
 /* Output:
 LeastSquares

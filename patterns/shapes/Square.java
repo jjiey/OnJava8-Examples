@@ -4,4 +4,4 @@
 // Visit http://OnJava8.com for more book information.
 package patterns.shapes;
 
-public class Square extends Shape {}
+public class Square extends patterns.shapes.Shape {}

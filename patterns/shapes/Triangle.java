@@ -4,4 +4,4 @@
 // Visit http://OnJava8.com for more book information.
 package patterns.shapes;
 
-public class Triangle extends Shape {}
+public class Triangle extends patterns.shapes.Shape {}

@@ -4,8 +4,8 @@
 // Visit http://OnJava8.com for more book information.
 package patterns.shapes;
 
-public class BadShapeCreation
-extends RuntimeException {
+public class BadShapeCreation extends RuntimeException {
+
   public BadShapeCreation(String msg) {
     super(msg);
   }

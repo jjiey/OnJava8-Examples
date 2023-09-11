@@ -3,23 +3,29 @@
 // We make no guarantees that this code is fit for any purpose.
 // Visit http://OnJava8.com for more book information.
 // A basic static factory method.
-import java.util.*;
-import java.util.stream.*;
-import patterns.shapes.*;
 
-public class ShapeFactory1 implements FactoryMethod {
-  @Override public Shape create(String type) {
-    switch(type) {
-      case "Circle": return new Circle();
-      case "Square": return new Square();
-      case "Triangle": return new Triangle();
-      default:
-        throw new BadShapeCreation(type);
+/**
+ * 工厂模式
+ */
+public class ShapeFactory1 implements patterns.shapes.FactoryMethod {
+
+    @Override
+    public patterns.shapes.Shape create(String type) {
+        switch (type) {
+            case "Circle":
+                return new patterns.shapes.Circle();
+            case "Square":
+                return new patterns.shapes.Square();
+            case "Triangle":
+                return new patterns.shapes.Triangle();
+            default:
+                throw new patterns.shapes.BadShapeCreation(type);
+        }
     }
-  }
-  public static void main(String[] args) {
-    FactoryTest.test(new ShapeFactory1());
-  }
+
+    public static void main(String[] args) {
+        patterns.shapes.FactoryTest.test(new ShapeFactory1());
+    }
 }
 /* Output:
 Circle[0] draw
